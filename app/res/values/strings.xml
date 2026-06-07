@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SkyjoPoints</string>
+    <string name="new_game">Nouvelle Partie</string>
+    <string name="history">Historique</string>
+    <string name="no_history">Aucun historique de partie</string>
+    <string name="add_player">Ajouter un joueur</string>
+    <string name="player_name_hint">Nom du joueur</string>
+    <string name="start_game">Démarrer la partie</string>
+    <string name="min_players_warn">Il faut au moins 2 joueurs.</string>
+    <string name="max_players_warn">Maximum 8 joueurs.</string>
+    
+    <string name="scoreboard">Tableau des scores</string>
+    <string name="round_num">Manche %1$d</string>
+    <string name="total_score">Total</string>
+    <string name="add_round">Ajouter manche</string>
+    <string name="delete_last_round">Supprimer la dernière manche</string>
+    <string name="reset_game">Réinitialiser la partie</string>
+    <string name="end_game_msg">Partie terminée! Le gagnant est %1$s avec %2$d points!</string>
+    <string name="game_over">Partie Terminée</string>
+
+    <string name="enter_round_scores">Entrer les scores - Manche %1$d</string>
+    <string name="who_ended_round">Qui a fini la manche ?</string>
+    <string name="nobody">Personne / Manuel</string>
+    <string name="quick_input">Saisie rapide</string>
+    <string name="grid_calculator">Calculateur de grille</string>
+    <string name="save_round">Valider la manche</string>
+    <string name="cancel">Annuler</string>
+    
+    <string name="grid_helper_title">Grille de %1$s</string>
+    <string name="discard_col_msg">Colonnes identiques éliminées (0 pt)</string>
+    <string name="select_card_val">Choisir la valeur de la carte</string>
+    
+    <string name="history_title">Historique des Parties</string>
+    <string name="game_history_item">%1$s - %2$s</string>
+    <string name="winner_label">Gagnant: %1$s (%2$d pts)</string>
+    <string name="clear_history">Effacer l\'historique</string>
+</resources>

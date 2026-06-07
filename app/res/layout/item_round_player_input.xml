@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="12dp"
+    android:gravity="center_vertical"
+    android:padding="8dp"
+    android:background="@color/surface"
+    android:elevation="1dp">
+
+    <TextView
+        android:id="@+id/tv_player_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Player Name"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/et_player_score"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:hint="0"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
+        android:backgroundTint="@color/primary"
+        android:inputType="numberSigned"
+        android:gravity="center"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btn_grid_helper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grille"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/surface_card"
+        android:textSize="12sp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
