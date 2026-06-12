@@ -5,8 +5,8 @@
     android:orientation="horizontal"
     android:layout_marginBottom="12dp"
     android:gravity="center_vertical"
-    android:padding="8dp"
-    android:background="@color/surface"
+    android:padding="12dp"
+    android:background="@drawable/bg_rounded_card"
     android:elevation="1dp">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Player Name"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/themeTextPrimary"
         android:textSize="16sp"
         android:textStyle="bold"/>
 
@@ -24,13 +24,13 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:hint="0"
-        android:textColor="@color/text_primary"
-        android:textColorHint="@color/text_secondary"
-        android:backgroundTint="@color/primary"
+        android:textColor="?attr/themeTextPrimary"
+        android:textColorHint="?attr/themeTextSecondary"
+        android:background="@drawable/bg_input_field"
         android:inputType="numberSigned"
         android:gravity="center"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
+        android:layout_marginEnd="12dp"
+        android:padding="10dp"
         android:textSize="16sp"/>
 
     <Button
@@ -38,11 +38,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Grille"
-        android:textColor="@color/text_primary"
-        android:backgroundTint="@color/surface_card"
-        android:textSize="12sp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:textAllCaps="false"/>
+        android:textColor="?attr/themeTextPrimary"
+        android:background="@drawable/bg_rounded_button_secondary"
+        android:textSize="13sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAllCaps="false"
+        android:minHeight="0dp"
+        android:minWidth="0dp"/>
 
 </LinearLayout>

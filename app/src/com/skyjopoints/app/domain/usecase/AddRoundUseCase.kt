@@ -10,9 +10,7 @@ class AddRoundUseCase(private val repository: GameRepository) {
         val newRound = Round(scores)
         val updatedGame = activeGame.copy(rounds = activeGame.rounds + newRound)
         repository.saveActiveGame(updatedGame)
-        if (updatedGame.isFinished()) {
-            repository.saveGameToHistory(updatedGame)
-        }
+        repository.saveGameToHistory(updatedGame)
         return updatedGame
     }
 }

@@ -15,11 +15,11 @@
     <string name="total_score">Total</string>
     <string name="add_round">Ajouter manche</string>
     <string name="delete_last_round">Supprimer la dernière manche</string>
-    <string name="reset_game">Réinitialiser la partie</string>
     <string name="end_game_msg">Partie terminée! Le gagnant est %1$s avec %2$d points!</string>
     <string name="game_over">Partie Terminée</string>
 
     <string name="enter_round_scores">Entrer les scores - Manche %1$d</string>
+    <string name="edit_round_title">Modifier les scores - Manche %1$d</string>
     <string name="who_ended_round">Qui a fini la manche ?</string>
     <string name="nobody">Personne / Manuel</string>
     <string name="quick_input">Saisie rapide</string>

@@ -1,6 +1,7 @@
 package com.skyjopoints.app.ui
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.widget.FrameLayout
 import com.skyjopoints.app.R
 import com.skyjopoints.app.di.ServiceLocator
 import com.skyjopoints.app.domain.model.Game
+import com.skyjopoints.app.domain.model.VictoryCondition
+import com.skyjopoints.app.domain.model.StopCondition
 import com.skyjopoints.app.domain.model.Player
 import com.skyjopoints.app.ui.view.*
 
@@ -18,12 +21,13 @@ class MainActivity : Activity() {
     // Lazy load use cases
     private val startGameUseCase by lazy { ServiceLocator.provideStartGameUseCase() }
     private val addRoundUseCase by lazy { ServiceLocator.provideAddRoundUseCase() }
+    private val editRoundUseCase by lazy { ServiceLocator.provideEditRoundUseCase() }
     private val deleteRoundUseCase by lazy { ServiceLocator.provideDeleteRoundUseCase() }
-    private val resetGameUseCase by lazy { ServiceLocator.provideResetGameUseCase() }
     private val archiveGameUseCase by lazy { ServiceLocator.provideArchiveGameUseCase() }
 
     // State preservation for active round entry
     private val tempRoundScores = mutableMapOf<String, Int>()
+    private var editingRoundIndex: Int? = null
     
     private var roundEntryController: RoundEntryViewController? = null
 
@@ -36,9 +40,15 @@ class MainActivity : Activity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
         ServiceLocator.init(this)
+        val themeMode = ServiceLocator.getRepository().getThemeMode()
+        if (themeMode == "light") {
+            setTheme(R.style.AppTheme_Light)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+        
+        super.onCreate(savedInstanceState)
         
         setContentView(R.layout.activity_main)
         container = findViewById(R.id.container)
@@ -62,12 +72,15 @@ class MainActivity : Activity() {
                 container.addView(view)
                 PlayerSetupViewController(
                     root = view,
-                    onStartGame = { playerNames ->
-                        startGameUseCase(playerNames)
+                    onStartGame = { playerNames, maxPoints, gameName, victoryCondition, maxRounds, stopCondition ->
+                        startGameUseCase(playerNames, maxPoints, gameName, victoryCondition, maxRounds, stopCondition)
                         navigateTo(Screen.SCOREBOARD)
                     },
                     onViewHistory = {
                         navigateTo(Screen.HISTORY)
+                    },
+                    onToggleTheme = {
+                        toggleTheme()
                     }
                 )
             }
@@ -83,15 +96,26 @@ class MainActivity : Activity() {
                     root = view,
                     onAddRound = {
                         tempRoundScores.clear()
+                        editingRoundIndex = null
                         navigateTo(Screen.ROUND_ENTRY)
                     },
-                    onDeleteLastRound = {
-                        deleteRoundUseCase()
-                        navigateTo(Screen.SCOREBOARD)
+                    onEditRound = { index ->
+                        tempRoundScores.clear()
+                        editingRoundIndex = index
+                        navigateTo(Screen.ROUND_ENTRY)
                     },
-                    onResetGame = {
-                        resetGameUseCase()
-                        navigateTo(Screen.SCOREBOARD)
+                    onEndGame = {
+                        val activeGame = ServiceLocator.getRepository().getActiveGame()
+                        if (activeGame != null) {
+                            val updatedGame = activeGame.copy(manuallyFinished = true)
+                            ServiceLocator.getRepository().saveActiveGame(updatedGame)
+                            ServiceLocator.getRepository().saveGameToHistory(updatedGame)
+                            navigateTo(Screen.SCOREBOARD)
+                        }
+                    },
+                    onNewGame = {
+                        archiveGameUseCase()
+                        navigateTo(Screen.SETUP)
                     },
                     onQuitGame = {
                         archiveGameUseCase()
@@ -100,6 +124,9 @@ class MainActivity : Activity() {
                     onAcknowledgeWinner = {
                         archiveGameUseCase()
                         navigateTo(Screen.SETUP)
+                    },
+                    onToggleTheme = {
+                        toggleTheme()
                     }
                 )
                 controller.updateGame(game)
@@ -117,16 +144,47 @@ class MainActivity : Activity() {
                     root = view,
                     game = game,
                     initialScores = tempRoundScores,
+                    roundIndex = editingRoundIndex,
                     onOpenGridHelper = { player ->
                         saveTempInputs()
                         navigateTo(Screen.GRID_CALCULATOR, player)
                     },
                     onSave = { scores ->
-                        addRoundUseCase(scores)
-                        navigateTo(Screen.SCOREBOARD)
+                        val index = editingRoundIndex
+                        if (index != null) {
+                            AlertDialog.Builder(this)
+                                .setTitle("Confirmer la modification")
+                                .setMessage("Êtes-vous sûr de vouloir modifier cette manche ?")
+                                .setPositiveButton("Modifier") { _, _ ->
+                                    editRoundUseCase(index, scores)
+                                    editingRoundIndex = null
+                                    navigateTo(Screen.SCOREBOARD)
+                                }
+                                .setNegativeButton("Annuler", null)
+                                .show()
+                        } else {
+                            addRoundUseCase(scores)
+                            navigateTo(Screen.SCOREBOARD)
+                        }
                     },
                     onCancel = {
+                        editingRoundIndex = null
                         navigateTo(Screen.SCOREBOARD)
+                    },
+                    onDelete = {
+                        val index = editingRoundIndex
+                        if (index != null) {
+                            AlertDialog.Builder(this)
+                                .setTitle("Supprimer la manche")
+                                .setMessage("Êtes-vous sûr de vouloir supprimer définitivement cette manche ? Cette action est irréversible.")
+                                .setPositiveButton("Supprimer") { _, _ ->
+                                    deleteRoundUseCase(index)
+                                    editingRoundIndex = null
+                                    navigateTo(Screen.SCOREBOARD)
+                                }
+                                .setNegativeButton("Annuler", null)
+                                .show()
+                        }
                     }
                 )
             }
@@ -158,6 +216,10 @@ class MainActivity : Activity() {
                     repository = ServiceLocator.getRepository(),
                     onBack = {
                         navigateTo(Screen.SETUP)
+                    },
+                    onResumeGame = { game ->
+                        ServiceLocator.getRepository().saveActiveGame(game)
+                        navigateTo(Screen.SCOREBOARD)
                     }
                 )
             }
@@ -206,5 +268,13 @@ class MainActivity : Activity() {
             child.findViewById<View>(R.id.history_list_container) != null -> Screen.HISTORY
             else -> null
         }
+    }
+
+    private fun toggleTheme() {
+        val repo = ServiceLocator.getRepository()
+        val currentMode = repo.getThemeMode()
+        val newMode = if (currentMode == "light") "dark" else "light"
+        repo.setThemeMode(newMode)
+        recreate()
     }
 }

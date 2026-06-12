@@ -21,7 +21,7 @@ object ServiceLocator {
     fun provideStartGameUseCase(): StartGameUseCase = StartGameUseCase(getRepository())
     fun provideAddRoundUseCase(): AddRoundUseCase = AddRoundUseCase(getRepository())
     fun provideDeleteRoundUseCase(): DeleteRoundUseCase = DeleteRoundUseCase(getRepository())
-    fun provideResetGameUseCase(): ResetGameUseCase = ResetGameUseCase(getRepository())
     fun provideArchiveGameUseCase(): ArchiveGameUseCase = ArchiveGameUseCase(getRepository())
     fun provideCalculateGridScoreUseCase(): CalculateGridScoreUseCase = CalculateGridScoreUseCase()
+    fun provideEditRoundUseCase(): EditRoundUseCase = EditRoundUseCase(getRepository())
 }

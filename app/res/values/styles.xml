@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Dark Theme (Default) -->
     <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
-        <item name="android:windowBackground">@color/bg</item>
-        <item name="android:textColorPrimary">@color/text_primary</item>
-        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="themeBg">@color/bg_dark</item>
+        <item name="themeSurface">@color/surface_dark</item>
+        <item name="themeSurfaceCard">@color/card_dark</item>
+        <item name="themeTextPrimary">@color/text_primary_dark</item>
+        <item name="themeTextSecondary">@color/text_secondary_dark</item>
+        <item name="themeDivider">@color/divider_dark</item>
+        <item name="themePrimary">@color/primary</item>
+        <item name="themeAccent">@color/accent</item>
+        <item name="themeInputBg">@color/input_bg_dark</item>
+        <item name="themeInputBorder">@color/divider_dark</item>
+        <item name="themeInputBorderFocused">@color/primary</item>
+
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:textColorPrimary">@color/text_primary_dark</item>
+        <item name="android:textColorSecondary">@color/text_secondary_dark</item>
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:colorPrimary">@color/primary</item>
-        <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:statusBarColor">@color/bg</item>
-        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:colorPrimaryDark">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+    </style>
+
+    <!-- Light Theme -->
+    <style name="AppTheme.Light" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="themeBg">@color/bg_light</item>
+        <item name="themeSurface">@color/surface_light</item>
+        <item name="themeSurfaceCard">@color/card_light</item>
+        <item name="themeTextPrimary">@color/text_primary_light</item>
+        <item name="themeTextSecondary">@color/text_secondary_light</item>
+        <item name="themeDivider">@color/divider_light</item>
+        <item name="themePrimary">@color/primary_light_accent</item>
+        <item name="themeAccent">@color/accent_light_accent</item>
+        <item name="themeInputBg">@color/input_bg_light</item>
+        <item name="themeInputBorder">@color/divider_light</item>
+        <item name="themeInputBorderFocused">@color/primary_light_accent</item>
+
+        <item name="android:windowBackground">@color/bg_light</item>
+        <item name="android:textColorPrimary">@color/text_primary_light</item>
+        <item name="android:textColorSecondary">@color/text_secondary_light</item>
+        <item name="android:colorAccent">@color/accent_light_accent</item>
+        <item name="android:colorPrimary">@color/primary_light_accent</item>
+        <item name="android:colorPrimaryDark">@color/bg_light</item>
+        <item name="android:statusBarColor">@color/bg_light</item>
+        <item name="android:navigationBarColor">@color/bg_light</item>
     </style>
 </resources>

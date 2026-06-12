@@ -40,7 +40,7 @@ com.skyjopoints.app/
 ├── domain/                 # Métier pur, ZERO import android.*
 │   ├── model/              # Player, Round, Game (entités riches)
 │   ├── port/               # GameRepository (interface de stockage)
-│   └── usecase/            # StartGame, AddRound, DeleteRound, ResetGame, etc.
+│   └── usecase/            # StartGame, AddRound, DeleteRound, EditRound, etc.
 ├── adapter/                # Infrastructure Android
 │   └── store/              # SharedPrefsGameRepository (SharedPreferences + org.json)
 ├── ui/                     # Interface Utilisateur (Driving adapters)

@@ -4,73 +4,321 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/bg">
+    android:background="?attr/themeBg">
 
-    <TextView
+    <!-- Header area with Title and Theme toggle -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:gravity="center"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="?attr/themePrimary"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/btn_theme_toggle"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="☀️"
+            android:textSize="18sp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:contentDescription="Changer le thème"/>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/new_game"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/themeTextPrimary"
         android:layout_marginBottom="16dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="16dp"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
         <LinearLayout
-            android:id="@+id/players_list_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!-- Dynamic player inputs will be added here -->
+
+            <LinearLayout
+                android:id="@+id/players_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Dynamic player inputs will be added here -->
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_add_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_player"
+                android:textColor="?attr/themeTextPrimary"
+                android:background="@drawable/bg_rounded_button_secondary"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:padding="12dp"
+                android:textAllCaps="false"
+                android:textSize="15sp"/>
+
+            <!-- Options toggle button -->
+            <Button
+                android:id="@+id/btn_toggle_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paramètres de la partie ⚙️"
+                android:textColor="?attr/themeTextSecondary"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:textAllCaps="false"
+                android:textSize="14sp"/>
+
+            <!-- Game settings section (initially hidden) -->
+            <LinearLayout
+                android:id="@+id/layout_game_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:background="@drawable/bg_rounded_card">
+
+                <!-- Nom de la partie -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nom de la partie :"
+                        android:textColor="?attr/themeTextSecondary"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:id="@+id/et_game_name"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Facultatif"
+                        android:textColor="?attr/themeTextPrimary"
+                        android:textColorHint="?attr/themeTextSecondary"
+                        android:background="@drawable/bg_input_field"
+                        android:inputType="text"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <!-- Condition de victoire -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Condition de victoire :"
+                        android:textColor="?attr/themeTextSecondary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/rg_victory_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rb_victory_fewest"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Le gagnant a le moins de points"
+                            android:textColor="?attr/themeTextPrimary"
+                            android:textSize="13sp"
+                            android:buttonTint="?attr/themeAccent"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_victory_most"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Le gagnant a le plus de points"
+                            android:textColor="?attr/themeTextPrimary"
+                            android:textSize="13sp"
+                            android:buttonTint="?attr/themeAccent"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <!-- Nombre max de manches -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nombre max de manches :"
+                        android:textColor="?attr/themeTextSecondary"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:id="@+id/et_max_rounds"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Infini"
+                        android:textColor="?attr/themeTextPrimary"
+                        android:textColorHint="?attr/themeTextSecondary"
+                        android:background="@drawable/bg_input_field"
+                        android:inputType="number"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <!-- Score max de fin -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Score max de fin :"
+                        android:textColor="?attr/themeTextSecondary"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:id="@+id/et_max_points"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Infini"
+                        android:textColor="?attr/themeTextPrimary"
+                        android:textColorHint="?attr/themeTextSecondary"
+                        android:background="@drawable/bg_input_field"
+                        android:inputType="number"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <!-- Condition d'arrêt par points (visible only when max points is set) -->
+                <LinearLayout
+                    android:id="@+id/layout_stop_condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Arrêter la partie :"
+                        android:textColor="?attr/themeTextSecondary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/rg_stop_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rb_stop_any"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dès qu'un joueur dépasse le score max"
+                            android:textColor="?attr/themeTextPrimary"
+                            android:textSize="13sp"
+                            android:buttonTint="?attr/themeAccent"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/rb_stop_all"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Quand tout le monde a dépassé le score max"
+                            android:textColor="?attr/themeTextPrimary"
+                            android:textSize="13sp"
+                            android:buttonTint="?attr/themeAccent"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <Button
+                android:id="@+id/btn_start_game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_game"
+                android:textColor="#FFFFFFFF"
+                android:background="@drawable/bg_rounded_button_primary"
+                android:layout_marginBottom="12dp"
+                android:padding="12dp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_view_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history"
+                android:textColor="?attr/themeAccent"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"
+                android:textSize="15sp"/>
+
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_add_player"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_player"
-        android:textColor="@color/text_primary"
-        android:backgroundTint="@color/surface_card"
-        android:layout_marginBottom="12dp"
-        android:padding="12dp"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/btn_start_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start_game"
-        android:textColor="@color/text_primary"
-        android:backgroundTint="@color/primary"
-        android:layout_marginBottom="12dp"
-        android:padding="12dp"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:id="@+id/btn_view_history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/history"
-        android:textColor="@color/accent"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="12dp"
-        android:textAllCaps="false"/>
 
 </LinearLayout>

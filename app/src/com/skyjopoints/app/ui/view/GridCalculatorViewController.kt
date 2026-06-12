@@ -140,37 +140,37 @@ class GridCalculatorViewController(
 
                 if (isDiscarded) {
                     // Eliminate visual clutter by fading out discarded cards
-                    bgColor = context.getColor(R.color.surface_card)
-                    textColor = context.getColor(R.color.text_secondary)
+                    bgColor = resolveColorAttr(R.attr.themeSurfaceCard)
+                    textColor = resolveColorAttr(R.attr.themeTextSecondary)
                     button.alpha = 0.4f
                     // If discarded, maybe show strike-through text
                     button.text = if (isSelected) "[x]" else "x"
                 } else {
                     button.alpha = 1.0f
                     if (value == null) {
-                        bgColor = context.getColor(R.color.surface_card)
-                        textColor = context.getColor(R.color.text_secondary)
+                        bgColor = resolveColorAttr(R.attr.themeSurfaceCard)
+                        textColor = resolveColorAttr(R.attr.themeTextSecondary)
                     } else {
                         when (value) {
                             -2 -> {
                                 bgColor = context.getColor(R.color.card_blue_dark)
-                                textColor = context.getColor(R.color.text_primary)
+                                textColor = 0xFFFFFFFF.toInt() // White text for colored card
                             }
                             -1, 0 -> {
                                 bgColor = context.getColor(R.color.card_cyan)
-                                textColor = context.getColor(R.color.text_primary)
+                                textColor = 0xFFFFFFFF.toInt() // White text for colored card
                             }
                             in 1..4 -> {
                                 bgColor = context.getColor(R.color.card_green)
-                                textColor = context.getColor(R.color.text_primary)
+                                textColor = 0xFFFFFFFF.toInt() // White text for colored card
                             }
                             in 5..8 -> {
                                 bgColor = context.getColor(R.color.card_yellow)
-                                textColor = context.getColor(R.color.bg)
+                                textColor = 0xFF121214.toInt() // Dark charcoal text for yellow card legibility
                             }
                             else -> {
                                 bgColor = context.getColor(R.color.card_red)
-                                textColor = context.getColor(R.color.text_primary)
+                                textColor = 0xFFFFFFFF.toInt() // White text for colored card
                             }
                         }
                     }
@@ -182,7 +182,7 @@ class GridCalculatorViewController(
 
                 // Highlight selected card border / stroke if it's selected
                 if (isSelected && !isDiscarded) {
-                    button.setTextColor(context.getColor(R.color.accent))
+                    button.setTextColor(resolveColorAttr(R.attr.themeAccent))
                 }
             }
         }
@@ -194,5 +194,11 @@ class GridCalculatorViewController(
         } else {
             tvSummary.text = "Score : $currentScore pts | Saisir les cartes"
         }
+    }
+
+    private fun resolveColorAttr(attr: Int): Int {
+        val typedValue = android.util.TypedValue()
+        context.theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 }

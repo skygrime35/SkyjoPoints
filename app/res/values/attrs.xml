@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="themeBg" format="color" />
+    <attr name="themeSurface" format="color" />
+    <attr name="themeSurfaceCard" format="color" />
+    <attr name="themeTextPrimary" format="color" />
+    <attr name="themeTextSecondary" format="color" />
+    <attr name="themeDivider" format="color" />
+    <attr name="themePrimary" format="color" />
+    <attr name="themeAccent" format="color" />
+    <attr name="themeInputBg" format="color" />
+    <attr name="themeInputBorder" format="color" />
+    <attr name="themeInputBorderFocused" format="color" />
+</resources>
